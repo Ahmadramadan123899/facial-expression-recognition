@@ -1,6 +1,3 @@
-Hi! This is the repository for my facial expression GNN project.
-Please use your respective dev- branches for edits.
-
 # Facial Expression Recognition — Graph-Tran Reimplementation
 
 A reimplementation of the **Graph-Tran** framework from:
