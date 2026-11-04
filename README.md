@@ -8,10 +8,10 @@ what the skin around each point looks like.
 I built this at the **CRIStAL lab (Université de Lille), 3D SAM & FOX teams**, supervised by
 Tanmoy Mondal and Deise Santana Maia, in two steps:
 
-1. **M1 research project** (Sep 2025 – Apr 2026): rebuild from scratch the Graph-Tran model
+1. **M1 research project**: rebuild from scratch the Graph-Tran model
    of Zhao et al. (2023), whose code was never published, and test it on one dataset (CK+).
    This version is on the [`research-project`](../../tree/research-project) branch.
-2. **Internship** (2026): test it on 5 datasets, find out why it does worse on
+2. **Internship**: test it on 5 datasets, find out why it does worse on
    real-life videos, and try new ideas to close the gap. This is the `main` branch (this page).
 
 The full story is in the reports: [`Report/internship.pdf`](Report/internship.pdf) and, on the
@@ -38,7 +38,7 @@ light). The last two are clips from movies and TV shows ("in the wild"), which i
 What this shows:
 - **On lab data, the rebuild matches the paper closely**, already with the baseline.
 - **On real-life clips, it starts far behind.** My changes to how the model looks at the face
-  raised AFEW from 38.64% to 46.48%, which closes about 60% of the gap with the paper.
+  raised AFEW from 38.64% to 46.48%, but did not close the gap with the paper.
   The rest of the gap I could not fully explain. My best guess is details of the training
   setup that the paper does not describe.
 
@@ -73,11 +73,11 @@ so I added a loader that reads one clip at a time from disk.
 
 **Fine-tuning the image encoder.** At first the ResNet that reads the patches was frozen.
 Training it together with the rest of the model raised AFEW from 29.77% to 38.64%. For this,
-patches and face points are now computed on the fly during training, so that random flips and
-crops change both the same way.
+patches can now be cropped from the raw frames during training, and the face points can be found
+again on each augmented frame, so the point positions and the patches always match.
 
 **Looking at the whole face, not only small patches.** The paper only looks at tiny 49×49 pixel
-patches around each point. In movie clips, that's often not enough. I tried several ways to also
+patches around each point. I tried several ways to also
 give the model the whole face:
 
 | Way of reading the face (AFEW) | Accuracy |
